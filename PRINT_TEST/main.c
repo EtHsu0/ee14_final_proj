@@ -2,6 +2,8 @@
 #include "SysTick.h"
 #include "LED.h"
 #include "LCD.h"
+#include <time.h>
+#include <stdlib.h>
 
 
 void System_Clock_Init(void){
@@ -43,15 +45,21 @@ int main(void){
 	//SysTick Initialization
 	//delay of 1Sec
 	//LED Toggle
-	
+	uint8_t a = 15,b=15,c=15;
 	System_Clock_Init();
 	LED_Init();
 	LCD_Initialization();
 	SysTick_Initialize(1000);
 	Joypad_init();
 	//
-
+	// srand(time(0));
 	while(1) {
-		
+		a = rand() % 60;
+		b = rand() % 60;
+		c = rand() % 100;
+		c = rand() % 100;
+		LCD_DisplayTime(a,b,c);
+		Red_LED_On();
+		while(1);
 	}
 }

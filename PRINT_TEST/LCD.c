@@ -384,7 +384,7 @@ static void LCD_Conv_Char_Seg(uint8_t* c, bool point, bool colon, uint8_t* digit
       ch = C_NMAP;
       break;
 
-    case '�' :
+    case '?' :
       ch = C_UMAP;
       break;
 

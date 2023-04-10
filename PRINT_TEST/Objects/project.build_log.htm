@@ -21,39 +21,24 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
-\\vs-home\ehsu05\ece_classes\ee14\ee14_final_proj\SysTick\project.uvprojx
+\\vs-home\ehsu05\ece_classes\ee14\ee14_final_proj\PRINT_TEST\project.uvprojx
 Project File Date:  04/09/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'c:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-assembling startup_stm32l476xx.s...
 compiling main.c...
 SysTick.h(10): warning:  #1-D: last line of file ends without a newline
   #endif /* __STM32L476G_DISCOVERY_SYSTICK_H */
-main.c(50): warning:  #223-D: function "SysTick_Initialize" declared implicitly
+main.c(52): warning:  #223-D: function "SysTick_Initialize" declared implicitly
   	SysTick_Initialize(1000);
-main.c: 2 warnings, 0 errors
-compiling LED.c...
-compiling LCD.c...
-LCD.c(250): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  	LCD_WriteChar(&time[0], 0, 0, 0);
-LCD.c(251): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  	LCD_WriteChar(&time[1], 0, 1, 1);
-LCD.c(252): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  	LCD_WriteChar(&time[2], 0, 0, 2);
-LCD.c(253): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  	LCD_WriteChar(&time[3], 1, 0, 3);
-LCD.c(254): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  	LCD_WriteChar(&time[4], 0, 0, 4);
-LCD.c(255): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  	LCD_WriteChar(&time[5], 0, 0, 5);
-LCD.c: 6 warnings, 0 errors
-compiling SysTick.c...
+main.c(61): warning:  #223-D: function "LCD_DisplayTime" declared implicitly
+  		LCD_DisplayTime(a,b,c);
+main.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=1696 RO-data=424 RW-data=4 ZI-data=5476  
+Program Size: Code=4594 RO-data=498 RW-data=8 ZI-data=5704  
 FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 8 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 

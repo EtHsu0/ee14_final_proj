@@ -9,7 +9,9 @@
   </p>
 </div>
 
-<!-- GETTING STARTED -->
+# IMMEDIATELY TODO
+* Add UART.c and UART.h to TEMPLATE and re-duplicate FINAL_PROJ (Ethan)
+
 ## Getting Started
 
 To set up this on Tufts halligan server. The best way to do this on your lab computer.

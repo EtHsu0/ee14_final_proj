@@ -433,6 +433,16 @@
               <FileType>1</FileType>
               <FilePath>.\UART.c</FilePath>
             </File>
+            <File>
+              <FileName>card.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\card.c</FilePath>
+            </File>
+            <File>
+              <FileName>card.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\card.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -10,7 +10,7 @@
 </div>
 
 # IMMEDIATELY TODO
-* Add UART.c and UART.h to TEMPLATE and re-duplicate FINAL_PROJ (Ethan)
+
 
 ## Getting Started
 
@@ -42,8 +42,10 @@ Please inlcude 1 sentence of message for each commit that is readable and unders
 
 ### Folder usage:
 DO NOT EVER MODIFY THE TEMPLATE FILE\
-Duplicate the template file if you want to start a test on something.\
-FINAL_PROJ will be where the final production code is located \
-PRINT_TEST will be where tests related to printing function on UART be \
+Duplicate the template file if you want to start a test on something.
+* FINAL_PROJ will be where the final production code is located 
+* Interrupt test has working interrupts on joypad
+* PRINT_TEST will be where tests related to printing function on UART be 
+* Card test will be where card logic is implemented.
 Feel free to duplicate a new folder to test out stuff.
 Notes: If you are familiar with git brance, feel free to use it as alternative. HOWEVER, using folder and copy code that is guaranteed to be corrected to FINAL_PROJ will be a better option to avoid pull request mess.

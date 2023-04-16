@@ -38,20 +38,5 @@ void Joypad_init(void) {
 }
 
 int main(void){
-	//System Clock Initialization
-	//LED Initialization
-	//SysTick Initialization
-	//delay of 1Sec
-	//LED Toggle
-	
-	System_Clock_Init();
-	LED_Init();
-	LCD_Initialization();
-	SysTick_Initialize(1000);
-	Joypad_init();
-	//
-
-	while(1) {
-		
-	}
+	while(1);
 }

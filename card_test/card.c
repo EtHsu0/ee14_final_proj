@@ -28,4 +28,6 @@ void Card_Init(void *buf) {
         shoe[i] = shoe[j];
         shoe[j] = temp;
     }
+
+    buf = (void *) = shoe;
 }

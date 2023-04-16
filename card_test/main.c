@@ -17,7 +17,7 @@ void System_Clock_Init(void){
 	// MSIRANGE can be modified when MSI is OFF (MSION=0) or when MSI is ready (MSIRDY=1). 
 	RCC->CR &= ~RCC_CR_MSIRANGE; 
 	RCC->CR |= RCC_CR_MSIRANGE_7;  // Select MSI 8 MHz	
- 
+
 	// The MSIRGSEL bit in RCC-CR select which MSIRANGE is used. 
 	// If MSIRGSEL is 0, the MSIRANGE in RCC_CSR is used to select the MSI clock range.  (This is the default)
 	// If MSIRGSEL is 1, the MSIRANGE in RCC_CR is used. 

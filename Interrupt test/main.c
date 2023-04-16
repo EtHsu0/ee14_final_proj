@@ -88,7 +88,7 @@ void EXTI0_IRQHandler(void) {
 		EXTI->PR1 |= EXTI_PR1_PIF0;
 	}
 }
-
+ 
 
 unsigned int wait_for_first_hit() {
 	unsigned int counter = 0;

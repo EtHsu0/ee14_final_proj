@@ -27,14 +27,18 @@ Project File Date:  04/19/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'c:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling main.c...
-Joypad.h(7): warning:  #1295-D: Deprecated declaration wait_for_first_hit - give arg types
-  unsigned int wait_for_first_hit();
-main.c: 1 warning, 0 errors
+compiling UART.c...
+UART.c(125): warning:  #69-D: integer conversion resulted in truncation
+  	uint8_t capacity = 1000;
+UART.c(127): warning:  #177-D: variable "debug"  was declared but never referenced
+  	char debug[] = "\n\nTESTTTT\r\n";
+UART.c(128): warning:  #177-D: variable "debug2"  was declared but never referenced
+  	char debug2[100];
+UART.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=2452 RO-data=408 RW-data=0 ZI-data=5704  
+Program Size: Code=3404 RO-data=408 RW-data=0 ZI-data=5704  
 FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 1 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 

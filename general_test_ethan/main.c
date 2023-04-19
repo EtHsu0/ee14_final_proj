@@ -14,9 +14,14 @@ uint8_t buffer[BufferSize];
 
 int main(void){
 	int i;
-	
+	char *data;
+	int len;
 	unsigned int seed;
+	
 	char start_msg[] = "\033cPress blue button to start\r\n";
+	char input_msg[] = "Please enter the amount of token you want to bet\r\n";
+	
+	
 	char str[7];
 	uint8_t test;
 	System_Clock_Init();
@@ -35,9 +40,16 @@ int main(void){
 
 	while(1) {
 		test = rand() % 10000;
-		sprintf(str, "%u\r\n", test);
+		sprintf(str, "\n%u\r\n", test);
+		USART_Write(USART2, (uint8_t *)str, strlen(str));
+		
+		USART_Write(USART2, (uint8_t *)input_msg, strlen(input_msg));
+		len = USART_Readaline(&data);
+		
 		
 		USART_Write(USART2, (uint8_t *)str, strlen(str));
+		
+		USART_Write(USART2, (uint8_t *)data, len);
 		
 		for(i = 0; i < 10000000; i++);
 	}

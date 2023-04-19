@@ -54,6 +54,12 @@ void System_Clock_Init(void){
 	RCC->CFGR &= ~RCC_CFGR_PPRE1; // APB high-speed prescaler (APB1) = 1, HCLK not divided
 	RCC->CFGR &= ~RCC_CFGR_PPRE2; // APB high-speed prescaler (APB2) = 1, HCLK not divided
 	
+	// RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLM;
+	// RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLN;
+	// RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLP; 
+	// RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLQ;	
+	// RCC->PLLCFGR |= RCC_PLLCFGR_PLLPEN; // Enable Main PLL PLLSAI3CLK output enable
+	// RCC->PLLCFGR |= RCC_PLLCFGR_PLLQEN; // Enable Main PLL PLL48M1CLK output enable
 	
 	RCC->CR &= ~RCC_CR_PLLSAI1ON;  // SAI1 PLL enable
 	while ( (RCC->CR & RCC_CR_PLLSAI1ON) == RCC_CR_PLLSAI1ON );
@@ -94,25 +100,4 @@ void System_Clock_Init(void){
 	RCC->CCIPR &= ~RCC_CCIPR_SAI1SEL;
 
 	RCC->APB2ENR |= RCC_APB2ENR_SAI1EN;
-
-	
-	RCC->CR |= RCC_CR_MSION; 
-	
-	// Select MSI as the clock source of System Clock
-	RCC->CFGR &= ~RCC_CFGR_SW; 
-	
-	// Wait until MSI is ready
-	while ((RCC->CR & RCC_CR_MSIRDY) == 0); 	
-	
-	// MSIRANGE can be modified when MSI is OFF (MSION=0) or when MSI is ready (MSIRDY=1). 
-	RCC->CR &= ~RCC_CR_MSIRANGE; 
-	RCC->CR |= RCC_CR_MSIRANGE_7;  // Select MSI 8 MHz	
- 
-	// The MSIRGSEL bit in RCC-CR select which MSIRANGE is used. 
-	// If MSIRGSEL is 0, the MSIRANGE in RCC_CSR is used to select the MSI clock range.  (This is the default)
-	// If MSIRGSEL is 1, the MSIRANGE in RCC_CR is used. 
-	RCC->CR |= RCC_CR_MSIRGSEL; 
-	
-	// Enable MSI and wait until it's ready	
-	while ((RCC->CR & RCC_CR_MSIRDY) == 0); 
 }

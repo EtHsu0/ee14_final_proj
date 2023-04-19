@@ -404,16 +404,6 @@
               <FilePath>.\LED.c</FilePath>
             </File>
             <File>
-              <FileName>SysTick.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\SysTick.h</FilePath>
-            </File>
-            <File>
-              <FileName>SysTick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SysTick.c</FilePath>
-            </File>
-            <File>
               <FileName>LCD.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\LCD.c</FilePath>
@@ -442,6 +432,16 @@
               <FileName>SysClock.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\SysClock.h</FilePath>
+            </File>
+            <File>
+              <FileName>Joypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Joypad.c</FilePath>
+            </File>
+            <File>
+              <FileName>Joypad.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Joypad.h</FilePath>
             </File>
           </Files>
         </Group>

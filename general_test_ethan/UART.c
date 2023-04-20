@@ -1,6 +1,5 @@
 #include "UART.h"
 
-
 // UART Ports:
 // ===================================================
 // PA.0 = UART4_TX (AF8)   |  PA.1 = UART4_RX (AF8)      
@@ -120,7 +119,32 @@ void USART_Write(USART_TypeDef * USARTx, uint8_t *buffer, uint32_t nBytes) {
 	while (!(USARTx->ISR & USART_ISR_TC));   		  // wait until TC bit is set
 	USARTx->ISR &= ~USART_ISR_TC;
 }   
- 
+
+// Read until the user hit a new line or EIOF
+uint8_t USART_Readaline(char **datapp) {
+	uint8_t capacity = 1000;
+	uint8_t line_size = 0;
+	char debug[] = "\n\nTESTTTT\r\n";
+	char debug2[100];
+	char str[2];
+	char c = 0;
+
+
+	
+	*datapp = malloc(capacity * sizeof(char));
+
+	while (c != 13 && line_size < capacity) {
+		c = USART_Read(USART2);
+		sprintf(str, "%c", c);
+		USART_Write(USART2, (uint8_t *)str, strlen(str));
+
+		if (c != 13 ) {
+		(*datapp)[line_size] = c;
+		line_size++;
+		}
+	}
+	return line_size;
+}
 
 void USART_Delay(uint32_t us) {
 	uint32_t time = 100*us/7;    

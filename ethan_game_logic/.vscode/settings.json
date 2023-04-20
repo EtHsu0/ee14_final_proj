@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "README": "plaintext",
+        "blackjack.h": "c",
+        "card.h": "c",
+        "stdlib.h": "c",
+        "stm32l476xx.h": "c",
+        "stdint.h": "c",
+        "string.h": "c"
+    }
+}

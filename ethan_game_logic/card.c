@@ -13,13 +13,22 @@ Deck *Deck_init(uint16_t capacity) {
 
 static Card *create_card(Suit type, uint8_t value) {
 	Card *new_card = malloc(sizeof(Card));
-    if (new_card == NULL)
-        GPIOB->ODR ^= GPIO_ODR_ODR_2;
 	new_card->type = type;
 	new_card->value = value;
 	return new_card;
 }
 
+static void shuffle_deck(Deck *deck) {
+    uint16_t i,j;
+    Card *temp;
+
+    for (i = 0; i < deck->size - 2; i++) {
+        j = rand() % (NUM_DECK * NUM_CARD);
+        temp = deck->deck[i];
+        deck->deck[i] = deck->deck[j];
+        deck->deck[j] = temp;
+    }
+}
 // This function assume that srand has been setup
 // This function assume user give a valid pointer
 void Card_Init(void *buf) {
@@ -29,14 +38,14 @@ void Card_Init(void *buf) {
     uint16_t idx = 0;
 	Card *temp;
 
-    
+
 	Deck *shoe = Deck_init(NUM_CARD * NUM_DECK);
 	// First generate all the card;
     for (k = 0; k < NUM_DECK; k++) {
         for (i = 0; i < NUM_SUIT; i++) {
             for (j = 0; j < NUM_CARD_EACH_SUIT; j++) {
-                temp = create_card((Suit)i, j+1);
-                shoe->deck[idx] = temp;
+
+                shoe->deck[idx] = create_card((Suit)i, j+1);
                 shoe->size++;
                 sprintf(test_str, "Value: %u\r\n", (temp)->value);
                 USART_Write(USART2, (uint8_t *)test_str, strlen(test_str));
@@ -46,12 +55,7 @@ void Card_Init(void *buf) {
     }
     USART_Write(USART2, (uint8_t *)"Test\r\n", strlen("Test\r\n"));
 
-    for (i = 0; i < shoe->size - 2; i++) {
-        j = rand() % (NUM_DECK * NUM_CARD);
-        temp = shoe->deck[i];
-        shoe->deck[i] = shoe->deck[j];
-        shoe->deck[j] = temp;
-    }
+    
 
     buf = (void *) shoe;
 }

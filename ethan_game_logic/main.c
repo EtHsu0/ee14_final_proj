@@ -15,11 +15,9 @@ int main(void){
 
 	System_Clock_Init();
 	LED_Init();
-	
 	UART2_Init();
-
 	Joypad_Init();
-	
+
 	USART_Write(USART2, (uint8_t *)start_msg, strlen(start_msg));	
 	
 	srand(wait_for_first_hit());

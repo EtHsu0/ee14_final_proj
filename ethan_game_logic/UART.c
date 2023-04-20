@@ -120,7 +120,12 @@ void USART_Write(USART_TypeDef * USARTx, uint8_t *buffer, uint32_t nBytes) {
 	USARTx->ISR &= ~USART_ISR_TC;
 }   
 
+void USART_SimpleWrite(char *string) {
+    USART_Write(USART2, (uint8_t *)string, strlen(string));
+}
+
 // Read until the user hit a new line or EIOF
+// USER is responsible to give an address to
 uint8_t USART_Readaline(char **datapp) {
 	uint8_t capacity = 1000;
 	uint8_t line_size = 0;
@@ -135,10 +140,11 @@ uint8_t USART_Readaline(char **datapp) {
 		USART_Write(USART2, (uint8_t *)str, strlen(str));
 
 		if (c != 13 ) {
-		(*datapp)[line_size] = c;
-		line_size++;
+		    (*datapp)[line_size] = c;
+		    line_size++;
 		}
 	}
+    (*datapp)[line_size++] = 0;
 	return line_size;
 }
 

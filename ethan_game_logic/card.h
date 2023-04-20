@@ -13,6 +13,7 @@
 
 typedef enum {CLUB = 0, DIAMOND = 1, HEART = 2, SPADE = 3} Suit;
 
+// Each Card is 8 byte
 typedef struct{
 	Suit type;
 	bool faceDown;
@@ -21,14 +22,13 @@ typedef struct{
 
 typedef struct{
 	Card **deck; // pointer to cards
-	uint8_t index;
+	uint16_t index;
 	uint16_t size;
 	uint16_t capacity;
 } Deck;
 // This function assume that srand has been setup
 // This function assume user give a valid pointer
 void Card_Init(void *buf);
-
 
 Card *Card_draw(Deck *deck);
 

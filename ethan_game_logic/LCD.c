@@ -1,6 +1,4 @@
-#include "lcd.h"
-#include "stm32l476xx.h"
-#include <stdint.h>
+#include "LCD.h"
 
 const uint16_t CapLetterMap[26] = {
         /* A      B      C      D      E      F      G      H      I  */

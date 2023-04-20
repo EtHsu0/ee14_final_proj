@@ -1,6 +1,8 @@
 
 #include "blackjack.h"
 
+#define UINT32_ERROR ((uint32_t)UINT32_MAX)
+
 Deck *shoe;
 Person *dealer;
 Person *player;
@@ -19,10 +21,31 @@ static void bj_init() {
     player->bets = 0;
 }
 
+static uint32_t convert_string_to_num(char *data) {
+    uint16_t i, len;
+    uint32_t result;
+    char *str;
+
+    if (data == NULL)
+        return UINT32_ERROR;
+    
+    len = strlen(data);
+
+    for (i = 0; i < len; i++) {
+        if (!isdigit(data[i])) {
+            return UINT32_ERROR;
+        }
+    }
+
+    result = atoi(str);
+
+    return result;
+}
 
 void bj_run() {
     Card *card;
     uint8_t len, test, i;
+    uint16_t user_input_number;
     char *data = malloc(1000);
     char newline[] = "\r\n";
 	char input_msg[] = "Please enter the amount of token you want to bet\r\n";
@@ -32,20 +55,20 @@ void bj_run() {
 
     bj_init();
 
+
     while(1) {
     USART_Write(USART2, (uint8_t *)input_msg, strlen(input_msg));
 		//sprintf(str, "\n%u\r\n", test);
 		//USART_Write(USART2, (uint8_t *)str, strlen(str));
-	   
-		
-		
+	    
 		len = USART_Readaline(&data);
 		
-		
+
+
 		//USART_Write(USART2, (uint8_t *)debug, strlen(debug));
 		
 		USART_Write(USART2, (uint8_t *)data, len);
-
+    
         USART_Write(USART2, (uint8_t *)newline, strlen(newline));
 		
   

@@ -17,7 +17,11 @@ typedef struct{
 	uint8_t value; // From 1 - 13, 9 will indicate noVal
 } Card;
 
-void printCard(Card *cards);
+void printCard(Card *cards, int numCards);
 void printFacedownCard();
+void printCardLineIcons(int numOfIcons, uint8_t *icon);
+void printAceLine(int lineNum, int suit);
+void printNumberTop(int value, uint8_t *suitIcon);
+void printNumberBottom(int value, uint8_t *suitIcon);
 
 #endif /* __PRINT_CARD_H */

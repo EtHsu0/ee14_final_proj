@@ -30,15 +30,17 @@ Build target 'Target 1'
 compiling PrintCard.c...
 PrintCard.h(21): warning:  #1295-D: Deprecated declaration printFacedownCard - give arg types
   void printFacedownCard();
-PrintCard.h(23): warning:  #1-D: last line of file ends without a newline
+PrintCard.h(27): warning:  #1-D: last line of file ends without a newline
   #endif /* __PRINT_CARD_H */
-PrintCard.c(27): warning:  #1-D: last line of file ends without a newline
+PrintCard.c(22): warning:  #177-D: variable "j"  was declared but never referenced
+  	int i, j;
+PrintCard.c(249): warning:  #1-D: last line of file ends without a newline
   }
-PrintCard.c: 3 warnings, 0 errors
+PrintCard.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=1756 RO-data=456 RW-data=52 ZI-data=5476  
+Program Size: Code=3760 RO-data=584 RW-data=164 ZI-data=5476  
 FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 3 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 

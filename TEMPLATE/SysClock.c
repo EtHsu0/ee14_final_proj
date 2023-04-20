@@ -13,7 +13,7 @@ void System_Clock_Init(void){
 	FLASH->ACR &= ~FLASH_ACR_LATENCY;
 	FLASH->ACR |=  FLASH_ACR_LATENCY_2WS;
 		
-	// Enable the Internal High Speed oscillator (HSI)
+	// Enable the Internal High Speed oscillator (HSI
 	RCC->CR |= RCC_CR_HSION;
 	while((RCC->CR & RCC_CR_HSIRDY) == 0);
 	// Adjusts the Internal High Speed oscillator (HSI) calibration value

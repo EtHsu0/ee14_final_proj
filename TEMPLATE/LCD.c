@@ -2,52 +2,6 @@
 #include "stm32l476xx.h"
 #include <stdint.h>
 
-/*  =========================================================================
-                                 LCD MAPPING
-    =========================================================================
-LCD allows to display informations on six 14-segment digits and 4 bars:
-
-  1       2       3       4       5       6
------   -----   -----   -----   -----   -----   
-|\|/| o |\|/| o |\|/| o |\|/| o |\|/|   |\|/|   BAR3
--- --   -- --   -- --   -- --   -- --   -- --   BAR2
-|/|\| o |/|\| o |/|\| o |/|\| o |/|\|   |/|\|   BAR1
------ * ----- * ----- * ----- * -----   -----   BAR0
-
-LCD segment mapping:
---------------------
-  -----A-----        _ 
-  |\   |   /|   COL |_|
-  F H  J  K B          
-  |  \ | /  |        _ 
-  --G-- --M--   COL |_|
-  |  / | \  |          
-  E Q  P  N C          
-  |/   |   \|        _ 
-  -----D-----   DP  |_|
-
- An LCD character coding is based on the following matrix:
-COM           0   1   2     3
-SEG(n)      { E , D , P ,   N   }
-SEG(n+1)    { M , C , COL , DP  }
-SEG(23-n-1) { B , A , K ,   J   }
-SEG(23-n)   { G , F , Q ,   H   }
-with n positive odd number.
-
- The character 'A' for example is:
-  -------------------------------
-LSB   { 1 , 0 , 0 , 0   }
-      { 1 , 1 , 0 , 0   }
-      { 1 , 1 , 0 , 0   }
-MSB   { 1 , 1 , 0 , 0   }
-      -------------------
-  'A' =  F    E   0   0 hexa
-
-  @endverbati
-
-*/
-
-/* Constant table for cap characters 'A' --> 'Z' */
 const uint16_t CapLetterMap[26] = {
         /* A      B      C      D      E      F      G      H      I  */
         0xFE00,0x6714,0x1d00,0x4714,0x9d00,0x9c00,0x3f00,0xfa00,0x0014,
@@ -222,36 +176,18 @@ void LCD_Configure(void){
 	
 }
 
-void LCD_DisplayString(uint8_t* ptr){
-	// char c = *ptr;
-	// uint8_t seg[4];
-	uint8_t i;
-	for (i = 0; i < 6; i++) {
-		LCD_WriteChar(&ptr[i], 0, 0, i);
-	}
+
+void LCD_DisplayNum(uint8_t number) {
+  char num_str[10];
+  uint8_t i;
+  sprintf(num_str, "%d", number);
+
+  for (i = 0; i < 6; i++) {
+    LCD_WriteChar(&num_str[i], 0, 0, i);
+  }
+  // TO BE FIXED FOR NUMBER LARGER THAN 6 DIGIT
 }
 
-char LCD_ConvertDigit(uint8_t digit) {
-	return '0' + digit;
-}
-
-void LCD_DisplayTime(uint8_t min, uint8_t sec, uint8_t ms) {
-	char time[6];
-	
-	time[0] = LCD_ConvertDigit(min / 10);
-	time[1] = LCD_ConvertDigit(min % 10);
-	time[2] = LCD_ConvertDigit(sec / 10);
-	time[3] = LCD_ConvertDigit(sec % 10);
-	time[4] = LCD_ConvertDigit(ms / 10);
-	time[5] = LCD_ConvertDigit(ms % 10);
-	
-	LCD_WriteChar(&time[0], 0, 0, 0);
-	LCD_WriteChar(&time[1], 0, 1, 1);
-	LCD_WriteChar(&time[2], 0, 0, 2);
-	LCD_WriteChar(&time[3], 1, 0, 3);
-	LCD_WriteChar(&time[4], 0, 0, 4);
-	LCD_WriteChar(&time[5], 0, 0, 5);	
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Do not change the code below

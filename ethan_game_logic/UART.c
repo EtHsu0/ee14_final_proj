@@ -120,7 +120,7 @@ void USART_Write(USART_TypeDef * USARTx, uint8_t *buffer, uint32_t nBytes) {
 	USARTx->ISR &= ~USART_ISR_TC;
 }   
 
-void USART_SimpleWrite(char *string) {
+void USART_Print(char *string) {
     USART_Write(USART2, (uint8_t *)string, strlen(string));
 }
 

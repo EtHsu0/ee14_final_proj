@@ -175,13 +175,13 @@ void LCD_Configure(void){
 }
 
 
-void LCD_DisplayNum(uint8_t number) {
+void LCD_DisplayNum(uint32_t number) {
   char num_str[10];
   uint8_t i;
   sprintf(num_str, "%d", number);
 
   for (i = 0; i < 6; i++) {
-    LCD_WriteChar(&num_str[i], 0, 0, i);
+    LCD_WriteChar((uint8_t *)&num_str[i], 0, 0, i + (6 - strlen(num_str)));
   }
   // TO BE FIXED FOR NUMBER LARGER THAN 6 DIGIT
 }

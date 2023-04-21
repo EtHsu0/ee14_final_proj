@@ -2,12 +2,13 @@
 #define _CARD_H
 #include "stm32l476xx.h"
 #include "UART.h"
+#include "LED.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 
 #define NUM_DECK 6
-#define NUM_CARD 52
+#define NUM_CARD (NUM_SUIT * NUM_CARD_EACH_SUIT)
 #define NUM_CARD_EACH_SUIT 13
 #define NUM_SUIT 4
 
@@ -28,7 +29,7 @@ typedef struct{
 } Deck;
 // This function assume that srand has been setup
 // This function assume user give a valid pointer
-void Card_Init(void *buf);
+void Card_Init(void **buf);
 
 Card *Card_draw(Deck *deck);
 

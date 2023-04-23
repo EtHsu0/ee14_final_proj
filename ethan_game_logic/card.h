@@ -23,7 +23,7 @@ typedef struct{
 
 typedef struct{
 	Card **deck; // pointer to cards
-	uint16_t index;
+	uint16_t index; // SPECIFICALLY FOR SHOES
 	uint16_t size;
 	uint16_t capacity;
 } Deck;

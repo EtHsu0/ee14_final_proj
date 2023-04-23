@@ -179,7 +179,7 @@ void LCD_DisplayNum(uint32_t number) {
   char num_str[10];
   uint8_t i;
   sprintf(num_str, "%d", number);
-
+  LCD_Clear();
   for (i = 0; i < 6; i++) {
     LCD_WriteChar((uint8_t *)&num_str[i], 0, 0, i + (6 - strlen(num_str)));
   }

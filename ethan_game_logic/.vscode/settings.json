@@ -7,5 +7,6 @@
         "stm32l476xx.h": "c",
         "stdint.h": "c",
         "string.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

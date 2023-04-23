@@ -16,8 +16,8 @@
 typedef struct {
     bool isDealer; // true or false
     Deck *hand;
-    uint16_t tokens; // only when isDealer == false
-    uint16_t bets; // only when isDealer == false
+    uint32_t tokens; // only when isDealer == false
+    uint32_t bets; // only when isDealer == false
 } Person;
 
 void bj_run(void);

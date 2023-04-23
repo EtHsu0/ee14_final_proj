@@ -139,7 +139,7 @@ static void print_board() {
     char bet_msg[30];
     USART_Print("Dealer hand:\r\n");
     print_hand(dealer);
-    sprintf(bet_msg, "Your current bet: %u\r\n", player->bets);
+    sprintf(bet_msg, "Your bet: %u\r\n", player->bets);
     USART_Print(bet_msg);
     USART_Print("Your hand:\r\n");
     print_hand(player);
@@ -278,17 +278,14 @@ void bj_run() {
             print_board();
 
             while(hand_sum(dealer) <= 16) {
+                if (hand_sum(dealer) >= 17)
+                    Green_LED_On();
                 temp_card = Card_draw(shoe);
                 if (temp_card == NULL)
                     Red_LED_On();
                 temp_card->faceDown = false;
                 dealer->hand->deck[dealer->hand->size++] = temp_card;
-                USART_Print("Dealer hand:\r\n");
-                print_hand(dealer);
-                sprintf(bet_msg, "Your current bet: %u\r\n", player->bets);
-                USART_Print(bet_msg);
-                USART_Print("Your hand:\r\n");
-                print_hand(player);
+                print_board();
             }
 
             if (hand_sum(dealer) == hand_sum(player)) {
@@ -316,6 +313,12 @@ void bj_run() {
         USART_Print("[ROUND END]\r\n");
         print_board();
         USART_Print(round_end_msg);
+
+        if (player->tokens == 0) {
+            USART_Print("You run out of tokens. Game over :(\r\n");
+            USART_Print("PRESS BLACK BUTTON TO RESTART\r\n");
+            while(1);
+        }
         USART_Readaline(&data);
         USART_Write(USART2, (uint8_t *)debug, strlen(debug));
 	}

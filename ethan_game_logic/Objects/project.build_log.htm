@@ -32,6 +32,14 @@ blackjack.c(32): warning:  #177-D: variable "str"  was declared but never refere
       char *str;
 blackjack.c(63): warning:  #177-D: variable "debug_msg"  was declared but never referenced
       char debug_msg[30];
+blackjack.c(192): error:  #167: argument of type "char (*)[1000]" is incompatible with parameter of type "char **"
+              len = USART_Readaline(&data);
+blackjack.c(212): error:  #167: argument of type "char (*)[1000]" is incompatible with parameter of type "char **"
+                  len = USART_Readaline(&data);
+blackjack.c(259): error:  #167: argument of type "char (*)[1000]" is incompatible with parameter of type "char **"
+                  len = USART_Readaline(&data);
+blackjack.c(322): error:  #167: argument of type "char (*)[1000]" is incompatible with parameter of type "char **"
+          USART_Readaline(&data);
 blackjack.c(149): warning:  #177-D: variable "card"  was declared but never referenced
       Card *card;
 blackjack.c(153): warning:  #550-D: variable "len"  was set but never used
@@ -42,11 +50,10 @@ blackjack.c(153): warning:  #177-D: variable "i"  was declared but never referen
       uint16_t len, test, i;
 blackjack.c(154): warning:  #177-D: variable "bet"  was declared but never referenced
       uint32_t user_input_number, bet;
-blackjack.c: 7 warnings, 0 errors
-linking...
-Program Size: Code=9390 RO-data=646 RW-data=32 ZI-data=74056  
-FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 7 Warning(s).
+blackjack.c(165): warning:  #177-D: variable "bet_msg"  was declared but never referenced
+      char bet_msg[20];
+blackjack.c: 8 warnings, 4 errors
+".\Objects\project.axf" - 4 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -69,7 +76,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
-Build Time Elapsed:  00:00:02
+Target not created.
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

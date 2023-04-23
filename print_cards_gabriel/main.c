@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+void printCards();
+
 char RxComByte = 0;
 uint8_t buffer[BufferSize];
 char str[] = "CARD TEST\r\n";
@@ -30,7 +32,7 @@ int main(void){
 	
 	Sample_Card.type = CLUB;
 	Sample_Card.faceDown = false;
-	Sample_Card.value = 2;
+	Sample_Card.value = 13;
 	
 	Sample_Card2.type = SPADE;
 	Sample_Card2.faceDown = false;
@@ -51,7 +53,7 @@ int main(void){
 		if (rxByte == 'N' || rxByte == 'n'){
 			Red_LED_Off();
 			USART_Write(USART2, (uint8_t *)"LED is Off\r\n\r\n", 16);
-			printCard(cards, 3);
+			printCards();
 		}
 		else if (rxByte == 'Y' || rxByte == 'y'){
 			Red_LED_On();
@@ -60,6 +62,20 @@ int main(void){
 		}
 		
 	}
+}
+
+void printCards() {
+	int i = 0;
+	Card *cards = malloc (sizeof(Card));
+	for (i = 0; i < 14; i++) {
+		Card Sample_Card;
+		Sample_Card.type = CLUB;
+		Sample_Card.faceDown = false;
+		Sample_Card.value = i;
+		cards[0] = Sample_Card;
+		printCard(cards, 1);
+	}
+	
 }
 
 

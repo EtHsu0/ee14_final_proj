@@ -27,20 +27,28 @@ Project File Date:  04/17/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'c:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling PrintCard.c...
-PrintCard.h(21): warning:  #1295-D: Deprecated declaration printFacedownCard - give arg types
+compiling main.c...
+PrintCard.h(19): warning:  #1295-D: Deprecated declaration printFacedownCard - give arg types
   void printFacedownCard();
-PrintCard.h(27): warning:  #1-D: last line of file ends without a newline
+PrintCard.h(26): warning:  #1-D: last line of file ends without a newline
   #endif /* __PRINT_CARD_H */
-PrintCard.c(22): warning:  #177-D: variable "j"  was declared but never referenced
-  	int i, j;
-PrintCard.c(249): warning:  #1-D: last line of file ends without a newline
-  }
-PrintCard.c: 4 warnings, 0 errors
+main.c(8): warning:  #1295-D: Deprecated declaration printCards - give arg types
+  void printCards();
+main.c(28): warning:  #223-D: function "System_Clock_Init" declared implicitly
+  	System_Clock_Init();
+main.c(16): warning:  #177-D: variable "a"  was declared but never referenced
+  	int a, n, i;
+main.c(16): warning:  #177-D: variable "n"  was declared but never referenced
+  	int a, n, i;
+main.c(16): warning:  #177-D: variable "i"  was declared but never referenced
+  	int a, n, i;
+main.c(17): warning:  #177-D: variable "b"  was declared but never referenced
+  	float b;
+main.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=3760 RO-data=584 RW-data=164 ZI-data=5476  
+Program Size: Code=4200 RO-data=672 RW-data=164 ZI-data=5476  
 FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 4 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -63,7 +71,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

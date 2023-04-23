@@ -2,11 +2,9 @@
 #define __PRINT_CARD_H
 
 #include "stm32l476xx.h"
-
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
-
 #include "UART.h"
 
 typedef enum {CLUB = 0, DIAMOND = 1, HEART = 2, SPADE = 3} Suit;
@@ -21,6 +19,7 @@ void printCard(Card *cards, int numCards);
 void printFacedownCard();
 void printCardLineIcons(int numOfIcons, uint8_t *icon);
 void printAceLine(int lineNum, int suit);
+void printFacecardLine(int value, Suit suit, int rowNum);
 void printNumberTop(int value, uint8_t *suitIcon);
 void printNumberBottom(int value, uint8_t *suitIcon);
 

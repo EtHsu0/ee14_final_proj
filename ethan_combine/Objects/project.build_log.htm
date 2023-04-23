@@ -30,27 +30,25 @@ Build target 'Target 1'
 compiling blackjack.c...
 printCard.h(20): warning:  #1-D: last line of file ends without a newline
   #endif /* __PRINT_CARD_H */
-blackjack.c(210): warning:  #177-D: variable "card"  was declared but never referenced
+blackjack.c(147): warning:  #177-D: variable "card"  was declared but never referenced
       Card *card;
-blackjack.c(214): warning:  #550-D: variable "len"  was set but never used
-      uint16_t len, test;
-blackjack.c(214): warning:  #177-D: variable "test"  was declared but never referenced
-      uint16_t len, test;
-blackjack.c(215): warning:  #177-D: variable "user_input_number"  was declared but never referenced
-      uint32_t user_input_number, bet, i;
-blackjack.c(215): warning:  #177-D: variable "bet"  was declared but never referenced
-      uint32_t user_input_number, bet, i;
-blackjack.c(224): warning:  #177-D: variable "bet_msg"  was declared but never referenced
+blackjack.c(151): warning:  #550-D: variable "len"  was set but never used
+      uint16_t len, test, i;
+blackjack.c(151): warning:  #177-D: variable "test"  was declared but never referenced
+      uint16_t len, test, i;
+blackjack.c(151): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t len, test, i;
+blackjack.c(152): warning:  #177-D: variable "bet"  was declared but never referenced
+      uint32_t user_input_number, bet;
+blackjack.c(163): warning:  #177-D: variable "bet_msg"  was declared but never referenced
       char bet_msg[20];
 blackjack.c(92): warning:  #177-D: function "print_hand"  was declared but never referenced
   static void print_hand(Person *person) {
-blackjack.c(146): warning:  #177-D: function "person_draw_card"  was declared but never referenced
-  static void person_draw_card(Person *person, bool faceDown) {
-blackjack.c: 9 warnings, 0 errors
+blackjack.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=11026 RO-data=906 RW-data=176 ZI-data=74056  
+Program Size: Code=10974 RO-data=894 RW-data=176 ZI-data=74056  
 FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 9 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 

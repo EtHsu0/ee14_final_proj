@@ -194,9 +194,9 @@ uint32_t cs43l22_Init(uint16_t DeviceAddr, uint16_t OutputDevice, uint8_t Volume
 	
 	
 		// Ivan's edit
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x86);
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x06); 
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0xC0); // 11000000
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xA0); // 1010 (freq) 0000 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x80); // 11000000
 	// end of Ivan's edit
   
   /* Return communication control value */

@@ -7,8 +7,6 @@ Deck *shoe;
 Person *player;
 Person *dealer;
 
-
-
 char *suit_name[] = {"Club", "Diamond", "Heart", "Spade"};
 
 
@@ -29,7 +27,7 @@ static void bj_init() {
 static uint32_t convert_string_to_num(char *data) {
     uint16_t i, len;
     uint32_t result;
-    char *str;
+
     result = 0;
     if (data == NULL)
         Red_LED_On();
@@ -60,7 +58,7 @@ static void to_lower(char *data) {
 
 static void round_start() {
     Card *temp;
-    char debug_msg[30];
+
     dealer->hand->size = 2;
     player->hand->size = 2;
 
@@ -95,10 +93,8 @@ static void print_hand(Person *person) {
     uint8_t i;
     char print_msg[20];
     char *faceDown_msg = "Face down card.\r\n";
-    Green_LED_On();
 
     for (i = 0; i < person->hand->size; i++) {
-    
         if (person->hand->deck[i]->faceDown) 
             USART_Print(faceDown_msg);
         else {
@@ -106,7 +102,6 @@ static void print_hand(Person *person) {
             USART_Print(print_msg);
         }
     }
-    Green_LED_Off();
 }
 
 static uint8_t hand_sum(Person *person) {
@@ -138,113 +133,133 @@ static uint8_t hand_sum(Person *person) {
 static void print_board() {
     char bet_msg[30];
     USART_Print("Dealer hand:\r\n");
-    print_hand(dealer);
+
+    // print_hand(dealer);
+    printCard(dealer->hand->deck, dealer->hand->size);
     sprintf(bet_msg, "Your bet: %u\r\n", player->bets);
     USART_Print(bet_msg);
     USART_Print("Your hand:\r\n");
-    print_hand(player);
+   // print_hand(player);
+    printCard(player->hand->deck, player->hand->size);
+}
+
+static void person_draw_card(Person *person, bool faceDown) {
+    Card *temp = Card_draw(shoe);
+    if (temp == NULL)
+        Red_LED_On();
+    temp->faceDown = faceDown;
+    person->hand->deck[person->hand->size++] = temp;
+}
+
+static void bj_read_bet() {
+    uint32_t user_input_number = UINT32_ERROR;
+    bool new_round = true;
+    char *data = malloc(500);
+
+    char confirm_msg[100];
+
+    char input_msg[] = "Please enter the amount of token you want to bet.\r\n";
+    char reinput_msg[] = "\nPlease re-enter the amount of token you want to bet.\r\n";
+    char NaN_msg[] = "Your bet is invalid.\r\n";
+    char neg_msg[] = "You are betting more than you have.\r\n";
+
+
+    while (user_input_number == UINT32_ERROR) {
+        new_round ? USART_Print(input_msg) : USART_Print(reinput_msg);
+        new_round = false;
+
+        USART_Readaline(&data);
+        USART_Print(data);
+        USART_Print("\r\n");
+
+        user_input_number = convert_string_to_num(data);
+
+        if (user_input_number == UINT32_ERROR || user_input_number == 0) {
+            USART_Print(NaN_msg);
+            user_input_number = UINT32_ERROR;
+            continue;
+        }
+        if (user_input_number > player->tokens) {
+            USART_Print(neg_msg);
+            user_input_number = UINT32_ERROR;
+            continue;
+        }
+
+        sprintf(confirm_msg, "You are betting [%d], type Yes (Y) to confirm, type No (N) to provide another bet.\r\n", user_input_number);
+        USART_Print(confirm_msg);
+        while(1) {
+            USART_Readaline(&data);
+            USART_Print(data);
+            USART_Print("\r\n");
+            
+            to_lower(data);
+
+            if (strcmp(data, "y") == 0 || strcmp(data, "yes") == 0) {
+                player->bets = user_input_number;
+                break;
+            }
+            else if (strcmp(data, "n") == 0 || strcmp(data, "no") == 0){
+                user_input_number = UINT32_ERROR;
+                break;
+            }
+        }
+    }
 }
 
 void bj_run() {
     Card *card;
-    bool new_round, while_state;
+    bool new_round, while_state, blackjack;
     bool round_lose;
     uint8_t cards_sum = 0;
-    uint16_t len, test, i;
-    uint32_t user_input_number, bet;
-    char *data = malloc(1000);
-    char newline[] = "\r\n";\
-
+    uint16_t len, test;
+    uint32_t user_input_number, bet, i;
+    char newline[] = "\r\n";
+    char *data;
     Card *temp_card;
     
     uint32_t round_num = 0;
-
-	char input_msg[] = "Please enter the amount of token you want to bet.\r\n";
+	
     char round_end_msg[] = "The round has end, press enter to continue.\r\n";
     char round_msg[20];
     char bet_msg[20];
-    char reinput_msg[] = "\nPlease re-enter the amount of token you want to bet.\r\n";
-    char NaN_msg[] = "Your bet is invalid.\r\n";
     char hit_msg[] = "Type H to hit, and S to stand.\r\n";
-    char neg_msg[] = "You are betting more than you have.\r\n";
     char debug[] = "This is a debug message: end of while loop\r\n";
     char test_str[100];
-    char confirm_msg[100];
 
     bj_init();
 
-
     while(1) {
         new_round = true;
-        user_input_number = UINT32_ERROR;
+        
         LCD_DisplayNum(player->tokens);
 
         sprintf(round_msg, "\033c<<Round %u>>\r\n", ++round_num);
         USART_Print(round_msg);
-        while (user_input_number == UINT32_ERROR) {
-            if (new_round)
-                USART_Print(input_msg);
-            else
-                USART_Print(reinput_msg);
-            new_round = false;
 
-
-            len = USART_Readaline(&data);
-            USART_Print(data);
-            USART_Print(newline);
-            user_input_number = convert_string_to_num(data);
-
-            if (user_input_number == UINT32_ERROR || user_input_number == 0) {
-                USART_Print(NaN_msg);
-                user_input_number = UINT32_ERROR;
-                continue;
-            }
-            if (user_input_number > player->tokens) {
-                USART_Print(neg_msg);
-                user_input_number = UINT32_ERROR;
-                continue;
-            }
-
-            sprintf(confirm_msg, "You are betting [%d], type Y to confirm, type N to provide another bet.\r\n", user_input_number);
-            USART_Print(confirm_msg);
-            player->bets = user_input_number;
-            while(1) {
-                len = USART_Readaline(&data);
-                USART_Print(data);
-                USART_Print(newline);
-                to_lower(data);
-
-                if (strcmp(data, "y") == 0 || strcmp(data, "yes") == 0) {
-                    break;
-                }
-                else if (strcmp(data, "n") == 0 || strcmp(data, "no") == 0){
-                    user_input_number = UINT32_ERROR;
-                    break;
-                }
-            }
-        }
+        bj_read_bet();
 
         player->tokens -= player->bets;
         LCD_DisplayNum(player->tokens);
+
         round_start();
+
         while_state = true;
         new_round = true;
         round_lose = false;
         while(while_state) {
-            if (new_round)
-                new_round = false;
-            else {
-                temp_card = Card_draw(shoe);
-                if (temp_card == NULL)
-                    Red_LED_On();
-                temp_card->faceDown = false;
-                player->hand->deck[player->hand->size++] = temp_card;
-            }
+            new_round ? new_round = false : person_draw_card(player, false);
             print_board();
             
             cards_sum = hand_sum(player);
+
+            if (new_round && cards_sum == 21) {
+                USART_Print("\r\nBLACKJACK!!\r\n");
+                blackjack = true;
+                break;
+            }
+
             if (cards_sum > 21) {
-                USART_Print("BUSTED!!\r\n");
+                USART_Print("\r\nBUSTED!!\r\n");
                 round_lose = true;
                 break;
             }

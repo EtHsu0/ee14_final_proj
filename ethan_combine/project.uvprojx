@@ -468,6 +468,16 @@
               <FileType>5</FileType>
               <FilePath>.\LED.h</FilePath>
             </File>
+            <File>
+              <FileName>printCard.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\printCard.h</FilePath>
+            </File>
+            <File>
+              <FileName>printCard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\printCard.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

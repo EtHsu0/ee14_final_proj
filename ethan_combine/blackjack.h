@@ -5,6 +5,7 @@
 #include "UART.h"
 #include "LED.h"
 #include "LCD.h"
+#include "printCard.h"
 
 #include <stdlib.h>
 #include <stdbool.h>

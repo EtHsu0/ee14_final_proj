@@ -29,23 +29,6 @@ int main(void){
 	LED_Init();
 	UART2_Init();
 	
-	
-	Sample_Card.type = CLUB;
-	Sample_Card.faceDown = false;
-	Sample_Card.value = 13;
-	
-	Sample_Card2.type = SPADE;
-	Sample_Card2.faceDown = false;
-	Sample_Card2.value = 10;
-	
-	Sample_Ace.type = DIAMOND;
-	Sample_Ace.faceDown = false;
-	Sample_Ace.value = 1;
-	
-	
-	cards[0] = Sample_Card;
-	cards[1] = Sample_Ace;
-	cards[2] = Sample_Card2;
 
 	while(1) {
 		USART_Write(USART2, (uint8_t *)str, strlen(str));	

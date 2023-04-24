@@ -250,7 +250,6 @@ void bj_run() {
             player->tokens += player->bets * 2 + player->bets / 2;
         }
         else if (!round_lose) {
-            Green_LED_On();
             print_board();
 
             while(hand_sum(dealer) <= 16) {
@@ -280,7 +279,7 @@ void bj_run() {
 
         USART_Print(newline);
 
-        delay(30000000);
+        delay(20000000);
         USART_Print("[ROUND END]\r\n");
         print_board();
         USART_Print(round_end_msg);

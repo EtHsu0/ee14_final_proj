@@ -103,31 +103,33 @@ int main(void)
   while(1)
   {
     BSP_LED_Toggle(LED5);
+		
+		audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
 
-    /* Wait a callback event */
-    while(UpdatePointer==-1);
-    
-    int position = UpdatePointer;
-    UpdatePointer = -1;
+//    /* Wait a callback event */
+//    while(UpdatePointer==-1);
+//    
+//    int position = UpdatePointer;
+//    UpdatePointer = -1;
 
-    /* Update the first or the second part of the buffer */
-    for(int i = 0; i < PLAY_BUFF_SIZE/2; i++)
-    {
-      PlayBuff[i+position] = *(uint16_t *)(AUDIO_FILE_ADDRESS + PlaybackPosition);
-      PlaybackPosition+=2; 
-    }
+//    /* Update the first or the second part of the buffer */
+//    for(int i = 0; i < PLAY_BUFF_SIZE/2; i++)
+//    {
+//      PlayBuff[i+position] = *(uint16_t *)(AUDIO_FILE_ADDRESS + PlaybackPosition);
+//      PlaybackPosition+=2; 
+//    }
 
-    /* check the end of the file */
-    if((PlaybackPosition+PLAY_BUFF_SIZE/2) > AUDIO_FILE_SIZE)
-    {
-      PlaybackPosition = PLAY_HEADER;
-    }
-    
-    if(UpdatePointer != -1)
-    {
-      /* Buffer update time is too long compare to the data transfer time */
-      Error_Handler();
-    }
+//    /* check the end of the file */
+//    if((PlaybackPosition+PLAY_BUFF_SIZE/2) > AUDIO_FILE_SIZE)
+//    {
+//      PlaybackPosition = PLAY_HEADER;
+//    }
+//    
+//    if(UpdatePointer != -1)
+//    {
+//      /* Buffer update time is too long compare to the data transfer time */
+//      Error_Handler();
+//    }
   }
 
 

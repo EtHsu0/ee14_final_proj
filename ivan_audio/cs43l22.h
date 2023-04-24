@@ -179,6 +179,7 @@ uint32_t cs43l22_SetFrequency(uint16_t DeviceAddr, uint32_t AudioFreq);
 uint32_t cs43l22_SetMute(uint16_t DeviceAddr, uint32_t Cmd);
 uint32_t cs43l22_SetOutputMode(uint16_t DeviceAddr, uint8_t Output);
 uint32_t cs43l22_Reset(uint16_t DeviceAddr);
+void cs43l22_WinBeep(uint16_t DeviceAddr);
 
 /* AUDIO IO functions */
 void      AUDIO_IO_Init(void);

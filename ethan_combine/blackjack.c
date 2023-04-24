@@ -75,6 +75,12 @@ static void round_start() {
     person_draw(dealer, false);
 }
 
+static void round_end() {
+    player->hand->size = 0;
+    dealer->hand->size = 0;
+    player->bets = 0;
+}
+
 static uint8_t hand_sum(Person *person) {
     uint8_t result, i, num_ace, card_val;
     num_ace = 0;
@@ -194,7 +200,7 @@ void bj_run() {
         new_round = true;
         LCD_DisplayNum(player->tokens);
 
-        sprintf(round_msg, "\033c\033[1;33m<<Round %u>>\033[0m\r\n", ++round_num);
+        sprintf(round_msg, "\033c<<Round %u>>\r\n", ++round_num);
         USART_Print(round_msg);
 
         bj_read_bet();
@@ -254,7 +260,7 @@ void bj_run() {
 
             while(hand_sum(dealer) <= 16) {
                 person_draw(dealer, false);
-                delay(20000000);
+               // delay(20000000);
                 print_board();
             }
 
@@ -279,16 +285,19 @@ void bj_run() {
 
         USART_Print(newline);
 
-        delay(20000000);
+       // delay(20000000);
         USART_Print("[ROUND END]\r\n");
         print_board();
-        USART_Print(round_end_msg);
 
         if (player->tokens == 0) {
             USART_Print("You run out of tokens. Game over :(\r\n");
             USART_Print("PRESS BLACK BUTTON TO RESTART\r\n");
             while(1);
         }
+
+        round_end();
+        USART_Print(newline);
+        USART_Print(round_end_msg);
 
         USART_Readaline(&data);
         USART_Write(USART2, (uint8_t *)debug, strlen(debug));

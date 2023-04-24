@@ -84,6 +84,7 @@ AUDIO_DrvTypeDef cs43l22_drv =
   cs43l22_SetMute,  
   cs43l22_SetOutputMode,
   cs43l22_Reset,
+	cs43l22_WinBeep,
 };
 
 static uint8_t Is_cs43l22_Stop = 1;
@@ -114,6 +115,12 @@ static uint8_t CODEC_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
   * @param Volume: Initial volume level (from 0 (Mute) to 100 (Max))
   * @retval 0 if correct communication, else wrong communication
   */
+	
+void cs43l22_WinBeep(uint16_t DeviceAddr) {
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE0); // 1010 (freq) 0000 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x80); // 11000000
+}
 uint32_t cs43l22_Init(uint16_t DeviceAddr, uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq)
 {
 	
@@ -194,10 +201,13 @@ uint32_t cs43l22_Init(uint16_t DeviceAddr, uint16_t OutputDevice, uint8_t Volume
 	
 	
 		// Ivan's edit
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE0); // 1010 (freq) 0000 (on time)
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x80); // 11000000
+//	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE0); // 1010 (freq) 0000 (on time)
+//	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+//	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x80); // 11000000
 	// end of Ivan's edit
+	
+	
+	//cs43l22_WinBeep(DeviceAddr);
   
   /* Return communication control value */
   return counter;  

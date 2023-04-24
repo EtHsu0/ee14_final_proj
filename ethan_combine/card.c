@@ -25,7 +25,6 @@ static Card *create_card(Suit type, uint8_t value) {
 }
 
 static void shuffle_deck(Deck *deck) {
-    char test_str[100];
     uint16_t i,j;
     Card *temp;
 
@@ -39,11 +38,8 @@ static void shuffle_deck(Deck *deck) {
 // This function assume that srand has been setup
 // This function assume user give a valid pointer
 void Card_Init(void **buf) {
-    char test_str[100];
-	uint16_t i,j, k, test, idx;
+	uint16_t i,j, k, idx;
     
-
-	Card *temp;
 	Deck *shoe = Deck_init(NUM_CARD * NUM_DECK);
     idx = 0;
 	// First generate all the card;
@@ -58,18 +54,11 @@ void Card_Init(void **buf) {
     }
     
     shuffle_deck(shoe);
-    for (i = 0; i < NUM_DECK * NUM_CARD; i++) {
-        if (shoe->deck[i]->value == 0) {
-            sprintf(test_str, "Something wrong: %u, %p\r\n", i, shoe->deck[i]);
-            USART_Print(test_str);
-        }
-    }
 
     *buf = (void *) shoe;
 }
 
 Card *Card_draw(Deck *deck) {
-    char test_str[20];
     Card *ret;
 
     ret = deck->deck[deck->index];

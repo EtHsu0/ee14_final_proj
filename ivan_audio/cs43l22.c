@@ -19,6 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "cs43l22.h"
+#include "stm32l476g_discovery.h"
 
 /** @addtogroup BSP
   * @{
@@ -117,9 +118,26 @@ static uint8_t CODEC_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
   */
 	
 void cs43l22_WinBeep(uint16_t DeviceAddr) {
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE0); // 1010 (freq) 0000 (on time)
+	HAL_Init();
+	
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off 
+	
+	HAL_Delay(500);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE1); // 1110 (freq) 0000 (on time)
 	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x80); // 11000000
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(500);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	HAL_Delay(500);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x11); // 0001 (freq) 0000 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 11000000
+	
+	HAL_Delay(500);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off 
+	
 }
 uint32_t cs43l22_Init(uint16_t DeviceAddr, uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq)
 {

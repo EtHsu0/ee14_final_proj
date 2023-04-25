@@ -31,8 +31,6 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-//#define AUDIO_FILE_ADDRESS   0x08080000
-//#define AUDIO_FILE_SIZE      (180*1024)
 #define PLAY_HEADER          0x2C
 #define PLAY_BUFF_SIZE       4096
 /* Private macro -------------------------------------------------------------*/
@@ -56,9 +54,6 @@ static void Playback_Init(void);
   */
 int main(void)
 {
-	
-	
-  //uint32_t PlaybackPosition   = PLAY_BUFF_SIZE + PLAY_HEADER;
   /* STM32L4xx HAL library initialization:
        - Configure the Flash prefetch
        - Systick timer is configured by default as source of time base, but user 
@@ -77,17 +72,8 @@ int main(void)
   /* Configure LED5 */
   BSP_LED_Init(LED5);
 
-  /* Check if the buffer has been loaded in flash */
-  //if(*((uint64_t *)AUDIO_FILE_ADDRESS) != 0x017EFE2446464952 ) Error_Handler();
-
   /* Initialize playback */
   Playback_Init();
-
-  /* Initialize the data buffer */
-//  for(int i=0; i < PLAY_BUFF_SIZE; i+=2)
-//  {
-//    PlayBuff[i]=*((__IO uint16_t *)(AUDIO_FILE_ADDRESS + PLAY_HEADER + i));
-//  }
     
   /* Start the playback */
   if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, NULL, 0))
@@ -99,37 +85,15 @@ int main(void)
     Error_Handler();
   }
   
+	audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
+	
   /* Start loopback */
   while(1)
   {
     BSP_LED_Toggle(LED5);
 		
-		audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
+		// audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
 
-//    /* Wait a callback event */
-//    while(UpdatePointer==-1);
-//    
-//    int position = UpdatePointer;
-//    UpdatePointer = -1;
-
-//    /* Update the first or the second part of the buffer */
-//    for(int i = 0; i < PLAY_BUFF_SIZE/2; i++)
-//    {
-//      PlayBuff[i+position] = *(uint16_t *)(AUDIO_FILE_ADDRESS + PlaybackPosition);
-//      PlaybackPosition+=2; 
-//    }
-
-//    /* check the end of the file */
-//    if((PlaybackPosition+PLAY_BUFF_SIZE/2) > AUDIO_FILE_SIZE)
-//    {
-//      PlaybackPosition = PLAY_HEADER;
-//    }
-//    
-//    if(UpdatePointer != -1)
-//    {
-//      /* Buffer update time is too long compare to the data transfer time */
-//      Error_Handler();
-//    }
   }
 
 

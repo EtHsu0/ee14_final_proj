@@ -87,6 +87,8 @@ int main(void)
   
 	audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
 	
+	audio_drv->LoseBeep(AUDIO_I2C_ADDRESS);
+	
   /* Start loopback */
   while(1)
   {

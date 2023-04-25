@@ -122,20 +122,85 @@ void cs43l22_WinBeep(uint16_t DeviceAddr) {
 	
 	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off 
 	
+	// tone 1
 	HAL_Delay(500);
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE1); // 1110 (freq) 0000 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x30); // 0000 (freq -- C4) 0001 (on time)
 	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
 	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
 	
-	HAL_Delay(500);
+	HAL_Delay(100);
 	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
 	
-	HAL_Delay(500);
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x11); // 0001 (freq) 0000 (on time)
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
-	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 11000000
 	
-	HAL_Delay(500);
+	// tone 2
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x10); // 1100 (freq -- G6) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	
+	// tone 3
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x31); // 0010 (freq -- D5) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	// tone 4
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xC2); // 0010 (freq -- D5) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(200);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	// tone 5
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE1); // 0010 (freq -- D5) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00011 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	// tone 6
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE1); // 0010 (freq -- D5) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x03);  // 000 (off time) 00100 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	// tone 7
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xE1); // 0010 (freq -- D5) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xF3); // 1111 (freq -- C7) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x07);  // 000 (off time) 00111 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	
+	HAL_Delay(600);
 	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off 
 	
 }

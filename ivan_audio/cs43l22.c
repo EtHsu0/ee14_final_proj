@@ -86,6 +86,7 @@ AUDIO_DrvTypeDef cs43l22_drv =
   cs43l22_SetOutputMode,
   cs43l22_Reset,
 	cs43l22_WinBeep,
+	cs43l22_LoseBeep,
 };
 
 static uint8_t Is_cs43l22_Stop = 1;
@@ -108,14 +109,7 @@ static uint8_t CODEC_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
   * @{
   */ 
 
-/**
-  * @brief Initializes the audio codec and the control interface.
-  * @param DeviceAddr: Device address on communication Bus.   
-  * @param OutputDevice: can be OUTPUT_DEVICE_SPEAKER, OUTPUT_DEVICE_HEADPHONE,
-  *                       OUTPUT_DEVICE_BOTH or OUTPUT_DEVICE_AUTO .
-  * @param Volume: Initial volume level (from 0 (Mute) to 100 (Max))
-  * @retval 0 if correct communication, else wrong communication
-  */
+
 	
 void cs43l22_WinBeep(uint16_t DeviceAddr) {
 	HAL_Init();
@@ -213,6 +207,72 @@ void cs43l22_WinBeep(uint16_t DeviceAddr) {
 	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off 
 	
 }
+
+void cs43l22_LoseBeep(uint16_t DeviceAddr) {
+	HAL_Init();
+	
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off 
+	
+	// tone 1
+	HAL_Delay(500);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0xA0); // 0000 (freq -- C4) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	// tone 2
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x80); // 1100 (freq -- G6) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	
+	// tone 3
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x61); // 0010 (freq -- D5) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+		// tone 8
+	HAL_Delay(100);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x23); // 0010 (freq -- D5) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x05);  // 000 (off time) 00101 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	HAL_Delay(700);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off
+	
+	
+	HAL_Delay(150);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_FREQ_ON_TIME, 0x23); // 1111 (freq -- C7) 0001 (on time)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_VOL_OFF_TIME, 0x07);  // 000 (off time) 00111 (beep volume)
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x40); // 01 (beep occurance) 00 (beepmixdis) 0000 (bass/treble)
+	
+	
+	HAL_Delay(600);
+	CODEC_IO_Write(DeviceAddr, CS43L22_REG_BEEP_TONE_CFG, 0x00); // beep off 
+	
+}
+
+/**
+  * @brief Initializes the audio codec and the control interface.
+  * @param DeviceAddr: Device address on communication Bus.   
+  * @param OutputDevice: can be OUTPUT_DEVICE_SPEAKER, OUTPUT_DEVICE_HEADPHONE,
+  *                       OUTPUT_DEVICE_BOTH or OUTPUT_DEVICE_AUTO .
+  * @param Volume: Initial volume level (from 0 (Mute) to 100 (Max))
+  * @retval 0 if correct communication, else wrong communication
+  */
 uint32_t cs43l22_Init(uint16_t DeviceAddr, uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq)
 {
 	

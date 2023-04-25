@@ -31,8 +31,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define AUDIO_FILE_ADDRESS   0x08080000
-#define AUDIO_FILE_SIZE      (180*1024)
+//#define AUDIO_FILE_ADDRESS   0x08080000
+//#define AUDIO_FILE_SIZE      (180*1024)
 #define PLAY_HEADER          0x2C
 #define PLAY_BUFF_SIZE       4096
 /* Private macro -------------------------------------------------------------*/
@@ -58,7 +58,7 @@ int main(void)
 {
 	
 	
-  uint32_t PlaybackPosition   = PLAY_BUFF_SIZE + PLAY_HEADER;
+  //uint32_t PlaybackPosition   = PLAY_BUFF_SIZE + PLAY_HEADER;
   /* STM32L4xx HAL library initialization:
        - Configure the Flash prefetch
        - Systick timer is configured by default as source of time base, but user 
@@ -78,16 +78,16 @@ int main(void)
   BSP_LED_Init(LED5);
 
   /* Check if the buffer has been loaded in flash */
-  if(*((uint64_t *)AUDIO_FILE_ADDRESS) != 0x017EFE2446464952 ) Error_Handler();
+  //if(*((uint64_t *)AUDIO_FILE_ADDRESS) != 0x017EFE2446464952 ) Error_Handler();
 
   /* Initialize playback */
   Playback_Init();
 
   /* Initialize the data buffer */
-  for(int i=0; i < PLAY_BUFF_SIZE; i+=2)
-  {
-    PlayBuff[i]=*((__IO uint16_t *)(AUDIO_FILE_ADDRESS + PLAY_HEADER + i));
-  }
+//  for(int i=0; i < PLAY_BUFF_SIZE; i+=2)
+//  {
+//    PlayBuff[i]=*((__IO uint16_t *)(AUDIO_FILE_ADDRESS + PLAY_HEADER + i));
+//  }
     
   /* Start the playback */
   if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, NULL, 0))
@@ -279,9 +279,6 @@ void Error_Handler(void)
 {
   /* LED5 On in error case */
   BSP_LED_On(LED5);
-  while (1)
-  {
-  }
 }
 
 /**

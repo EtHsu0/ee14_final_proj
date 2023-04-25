@@ -75,6 +75,7 @@ typedef struct
   uint32_t  (*SetOutputMode)(uint16_t, uint8_t);
   uint32_t  (*Reset)(uint16_t);
 	void	(*WinBeep)(uint16_t);
+	void 	(*LoseBeep)(uint16_t);
 }AUDIO_DrvTypeDef;
 /**
   * @}

@@ -1,22 +1,9 @@
-/**
-  ******************************************************************************
-  * @file    audio.h
-  * @author  MCD Application Team
-  * @brief   This header file contains the common defines and functions prototypes
-  *          for the Audio driver.  
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+// audio.h
+// Credits to the MCD Application Team, STMicroelectronics, for the source file
+// This header file contains the common defines and functions prototypes for the Audio driver
+// 
+// Revised by Ivan Q 
+// WinBeep, LoseBeep, TieBeep
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __AUDIO_H
@@ -29,33 +16,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
 
-/** @addtogroup BSP
-  * @{
-  */
-
-/** @addtogroup Components
-  * @{
-  */
-    
-/** @addtogroup AUDIO
-  * @{
-  */
-
-/** @defgroup AUDIO_Exported_Constants
-  * @{
-  */
-
 /* Codec audio Standards */
 #define CODEC_STANDARD                0x04
 #define I2S_STANDARD                  I2S_STANDARD_PHILIPS
 
-/**
-  * @}
-  */
-
-/** @defgroup AUDIO_Exported_Types
-  * @{
-  */
 
 /** @defgroup AUDIO_Driver_structure  Audio Driver structure
   * @{
@@ -76,26 +40,8 @@ typedef struct
   uint32_t  (*Reset)(uint16_t);
 	void	(*WinBeep)(uint16_t);
 	void 	(*LoseBeep)(uint16_t);
+	void 	(*TieBeep)(uint16_t);
 }AUDIO_DrvTypeDef;
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }
@@ -104,3 +50,4 @@ typedef struct
 #endif /* __AUDIO_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

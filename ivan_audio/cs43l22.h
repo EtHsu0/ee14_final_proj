@@ -1,21 +1,12 @@
-/**
-  ******************************************************************************
-  * @file    cs43l22.h
-  * @author  MCD Application Team
-  * @brief   This file contains all the functions prototypes for the cs43l22.c driver.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+// cs43l22.h
+// Credits to the MCD Application Team, STMicroelectronics, for the source file
+// This file contains the function prototypes for the cs43l22.c driver
+//
+// Revised by Ivan Q 
+//
+// cs43l22_WinBeep(uint16_t DeviceAddr);
+// cs43l22_LoseBeep(uint16_t DeviceAddr);
+// cs43l22_TieBeep(uint16_t DeviceAddr);
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __CS43L22_H
@@ -23,30 +14,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "../Common/audio.h"
-
-/** @addtogroup BSP
-  * @{
-  */ 
-
-/** @addtogroup Component
-  * @{
-  */ 
-  
-/** @addtogroup CS43L22
-  * @{
-  */
-
-/** @defgroup CS43L22_Exported_Types
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup CS43L22_Exported_Constants
-  * @{
-  */ 
 
 /******************************************************************************/
 /***************************  Codec User defines ******************************/
@@ -146,22 +113,6 @@
   *        011 - Rev B1
   */
 #define CS43L22_CHIPID_ADDR    0x01
-
-/**
-  * @}
-  */ 
-
-/** @defgroup CS43L22_Exported_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */ 
-
-/** @defgroup CS43L22_Exported_Functions
-  * @{
-  */
     
 /*------------------------------------------------------------------------------
                            Audio Codec functions 
@@ -181,6 +132,7 @@ uint32_t cs43l22_SetOutputMode(uint16_t DeviceAddr, uint8_t Output);
 uint32_t cs43l22_Reset(uint16_t DeviceAddr);
 void cs43l22_WinBeep(uint16_t DeviceAddr);
 void cs43l22_LoseBeep(uint16_t DeviceAddr);
+void cs43l22_TieBeep(uint16_t DeviceAddr);
 
 
 /* AUDIO IO functions */
@@ -194,20 +146,6 @@ extern AUDIO_DrvTypeDef   cs43l22_drv;
 
 #endif /* __CS43L22_H */
 
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */ 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

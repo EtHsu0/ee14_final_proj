@@ -1,33 +1,17 @@
-/**
-  ******************************************************************************
-  * @file    SAI/SAI_AudioPlay/Src/main.c
-  * @author  MCD Application Team
-  * @brief   This example describes how to use SAI HAL API to realize
-  *          audio play.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+// Credits to the MCD Application Team, STMicroelectronics for the source file
+// This files uses the SAI HAL API to implement audio
+// 
+// Revised and features added by Ivan Q
+// 
+// Key functions to call:
+// my_audio_init initializes HAL and connection with the DAC 
+// my_audio_beep() plays a winning sound (increasing audio frequencies)
+// my_audio_beep_2() plays a losing sound (decreasing audio frequencies)
+// my_audio_beep_3() plays a tie sound (consistent 1kHz audio frequency)
+
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
-/** @addtogroup STM32L4xx_HAL_Examples
-  * @{
-  */
-
-/** @addtogroup DFSDM_AudioRecord
-  * @{
-  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -47,12 +31,47 @@ static void Playback_Init(void);
 
 /* Private functions ---------------------------------------------------------*/
 
+void my_audio_init(void) {
+	HAL_Init();
+
+  /* Configure the system clock to have a frequency of 80 MHz */
+  //SystemClock_Config();
+
+  /* Configure LED5 */
+  //BSP_LED_Init(LED5);
+
+  /* Initialize playback */
+  Playback_Init();
+    
+  /* Start the playback */
+  if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, NULL, 0))
+  {
+    Error_Handler();
+  }
+  if(HAL_OK != HAL_SAI_Transmit_DMA(&SaiHandle, (uint8_t *)PlayBuff, PLAY_BUFF_SIZE))
+  {
+    Error_Handler();
+  }
+}
+
+void my_audio_beep(void) {
+	audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
+}
+
+void my_audio_beep_2(void) {
+	audio_drv->LoseBeep(AUDIO_I2C_ADDRESS);
+}
+
+void my_audio_beep_3(void) {
+	audio_drv->TieBeep(AUDIO_I2C_ADDRESS);
+}
+
 /**
   * @brief  Main program
   * @param  None
   * @retval None
   */
-int main(void)
+int imain2(void)
 {
   /* STM32L4xx HAL library initialization:
        - Configure the Flash prefetch
@@ -87,16 +106,14 @@ int main(void)
   
 	audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
 	
-	audio_drv->LoseBeep(AUDIO_I2C_ADDRESS);
-	
   /* Start loopback */
-  while(1)
-  {
-    BSP_LED_Toggle(LED5);
-		
-		// audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
+//  while(1)
+//  {
+//    BSP_LED_Toggle(LED5);
+//		
+//		// audio_drv->WinBeep(AUDIO_I2C_ADDRESS);
 
-  }
+//  }
 
 
 }
@@ -366,12 +383,5 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

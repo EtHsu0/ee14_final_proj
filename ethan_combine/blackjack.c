@@ -131,10 +131,10 @@ static void bj_read_bet() {
     char *data = malloc(500);
     char newline[] = "\r\n";
 
-	char input_msg[] = "Please enter the amount of token you want to bet.\r\n";
-    char reinput_msg[] = "\nPlease re-enter the amount of token you want to bet.\r\n";
+	char input_msg[] = "How many chips would you like to wager?\r\n";
+    char reinput_msg[] = "\nPlease re-enter the number of chips you'd like to wager.\r\n";
     char NaN_msg[] = "Your bet is invalid.\r\n";
-    char neg_msg[] = "You are betting more than you have.\r\n";
+    char neg_msg[] = "You are betting more chips than you currently have.\r\n";
 
     char confirm_msg[100];
 
@@ -159,7 +159,7 @@ static void bj_read_bet() {
             continue;
         }
 
-        sprintf(confirm_msg, "You are betting [%d], type Y to confirm, type N to provide another bet.\r\n", user_input_number);
+        sprintf(confirm_msg, "You are betting [%d] chips, type Y to confirm, type N to provide another bet.\r\n", user_input_number);
         USART_Print(confirm_msg);
         while(1) {
             USART_Readaline(&data);
@@ -189,9 +189,9 @@ void bj_run() {
 
     uint32_t round_num = 0;
 
-    char round_end_msg[] = "The round has end, press enter to continue.\r\n";
+    char round_end_msg[] = "The round has ended, press enter to continue.\r\n";
     char round_msg[20];
-    char hit_msg[] = "Type Hit (H) to draw another card, and Stand (S) to end your round.\r\n";
+    char hit_msg[] = "Type Hit (H) to draw another card, and Stand (S) to end your turn.\r\n";
     char debug[] = "This is a debug message: end of while loop\r\n";
 
     bj_init();
@@ -260,7 +260,7 @@ void bj_run() {
 
             while(hand_sum(dealer) <= 16) {
                 person_draw(dealer, false);
-               // delay(20000000);
+                delay(20000000);
                 print_board();
             }
 
@@ -285,13 +285,13 @@ void bj_run() {
 
         USART_Print(newline);
 
-       // delay(20000000);
+       delay(20000000);
         USART_Print("[ROUND END]\r\n");
         print_board();
 
         if (player->tokens == 0) {
-            USART_Print("You run out of tokens. Game over :(\r\n");
-            USART_Print("PRESS BLACK BUTTON TO RESTART\r\n");
+            USART_Print("You ran out of tokens. Game over :(\r\n");
+            USART_Print("PRESS THE BLACK BUTTON TO RESTART\r\n");
             while(1);
         }
 
